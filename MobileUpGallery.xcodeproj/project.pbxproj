@@ -12,6 +12,10 @@
 		AE1B9EE82C6507B0008C0231 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9EE72C6507B0008C0231 /* ViewController.swift */; };
 		AE1B9EED2C6507B1008C0231 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE1B9EEC2C6507B1008C0231 /* Assets.xcassets */; };
 		AE1B9EF02C6507B1008C0231 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = AE1B9EEF2C6507B1008C0231 /* Base */; };
+		AE1B9F002C651182008C0231 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9EFF2C651182008C0231 /* MainView.swift */; };
+		AE1B9F042C652324008C0231 /* SF-Pro-Text-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE1B9F032C652324008C0231 /* SF-Pro-Text-Medium.ttf */; };
+		AE1B9F062C652B80008C0231 /* OAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F052C652B80008C0231 /* OAuthView.swift */; };
+		AE1B9F082C652B8F008C0231 /* OAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F072C652B8F008C0231 /* OAuthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		AE1B9EEC2C6507B1008C0231 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE1B9EEF2C6507B1008C0231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE1B9EF12C6507B1008C0231 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE1B9EFF2C651182008C0231 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AE1B9F032C652324008C0231 /* SF-Pro-Text-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.ttf"; sourceTree = "<group>"; };
+		AE1B9F052C652B80008C0231 /* OAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthView.swift; sourceTree = "<group>"; };
+		AE1B9F072C652B8F008C0231 /* OAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +62,50 @@
 		AE1B9EE22C6507B0008C0231 /* MobileUpGallery */ = {
 			isa = PBXGroup;
 			children = (
+				AE1B9EF12C6507B1008C0231 /* Info.plist */,
 				AE1B9EE32C6507B0008C0231 /* AppDelegate.swift */,
 				AE1B9EE52C6507B0008C0231 /* SceneDelegate.swift */,
-				AE1B9EE72C6507B0008C0231 /* ViewController.swift */,
-				AE1B9EEC2C6507B1008C0231 /* Assets.xcassets */,
-				AE1B9EEE2C6507B1008C0231 /* LaunchScreen.storyboard */,
-				AE1B9EF12C6507B1008C0231 /* Info.plist */,
+				AE1B9EF72C650AED008C0231 /* Models */,
+				AE1B9EF92C650AFE008C0231 /* Views */,
+				AE1B9EF82C650AF5008C0231 /* Controllers */,
+				AE1B9EFA2C650B06008C0231 /* Resources */,
 			);
 			path = MobileUpGallery;
+			sourceTree = "<group>";
+		};
+		AE1B9EF72C650AED008C0231 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AE1B9EF82C650AF5008C0231 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9EE72C6507B0008C0231 /* ViewController.swift */,
+				AE1B9F072C652B8F008C0231 /* OAuthViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AE1B9EF92C650AFE008C0231 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9EFF2C651182008C0231 /* MainView.swift */,
+				AE1B9F052C652B80008C0231 /* OAuthView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AE1B9EFA2C650B06008C0231 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9F032C652324008C0231 /* SF-Pro-Text-Medium.ttf */,
+				AE1B9EEC2C6507B1008C0231 /* Assets.xcassets */,
+				AE1B9EEE2C6507B1008C0231 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +124,8 @@
 			dependencies = (
 			);
 			name = MobileUpGallery;
+			packageProductDependencies = (
+			);
 			productName = MobileUpGallery;
 			productReference = AE1B9EE02C6507B0008C0231 /* MobileUpGallery.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +154,8 @@
 				Base,
 			);
 			mainGroup = AE1B9ED72C6507B0008C0231;
+			packageReferences = (
+			);
 			productRefGroup = AE1B9EE12C6507B0008C0231 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -122,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1B9F042C652324008C0231 /* SF-Pro-Text-Medium.ttf in Resources */,
 				AE1B9EED2C6507B1008C0231 /* Assets.xcassets in Resources */,
 				AE1B9EF02C6507B1008C0231 /* Base in Resources */,
 			);
@@ -135,8 +184,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE1B9EE82C6507B0008C0231 /* ViewController.swift in Sources */,
+				AE1B9F002C651182008C0231 /* MainView.swift in Sources */,
 				AE1B9EE42C6507B0008C0231 /* AppDelegate.swift in Sources */,
 				AE1B9EE62C6507B0008C0231 /* SceneDelegate.swift in Sources */,
+				AE1B9F082C652B8F008C0231 /* OAuthViewController.swift in Sources */,
+				AE1B9F062C652B80008C0231 /* OAuthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
