@@ -11,8 +11,19 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainView.onError = { [weak self] message in
+            self?.displayError(message: message)
+        }
+        
+        mainView.setupView()
+        
         // Добавление действия для кнопки
         mainView.button.addTarget(self, action: #selector(openOAuthWebView), for: .touchUpInside)
+    }
+    
+    private func displayError(message: String) {
+        let errorAlert = ErrorAlertView(message: message)
+        errorAlert.show(in: view)
     }
     
     @objc func openOAuthWebView() {

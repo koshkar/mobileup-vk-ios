@@ -44,4 +44,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
             return CGSize(width: width, height: width * 9 / 16)
         }
     }
+    
+    private func displayError(message: String) {
+        let errorAlert = ErrorAlertView(message: message)
+        errorAlert.show(in: view)
+    }
 }
