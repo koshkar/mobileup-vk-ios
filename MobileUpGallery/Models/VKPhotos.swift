@@ -16,3 +16,19 @@ struct VKPhotoItem: Decodable {
 struct VKPhotoSize: Decodable {
     let url: String
 }
+
+struct VKAlbumsResponse: Decodable {
+    let response: Response
+
+    struct Response: Decodable {
+        let count: Int
+        let items: [Album]
+    }
+
+    struct Album: Decodable {
+        let id: Int
+        let title: String
+        let size: Int?
+    }
+}
+
