@@ -27,6 +27,7 @@
 		AE1B9F1D2C663ABD008C0231 /* VKPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F1C2C663ABD008C0231 /* VKPhotos.swift */; };
 		AE1B9F1F2C66CDA5008C0231 /* VKResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F1E2C66CDA5008C0231 /* VKResponse.swift */; };
 		AE1B9F212C6764A4008C0231 /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F202C6764A4008C0231 /* DetailPhotoViewController.swift */; };
+		AE1B9F232C67BA70008C0231 /* DetailPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F222C67BA70008C0231 /* DetailPhotoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		AE1B9F1C2C663ABD008C0231 /* VKPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPhotos.swift; sourceTree = "<group>"; };
 		AE1B9F1E2C66CDA5008C0231 /* VKResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKResponse.swift; sourceTree = "<group>"; };
 		AE1B9F202C6764A4008C0231 /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
+		AE1B9F222C67BA70008C0231 /* DetailPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				AE1B9F052C652B80008C0231 /* OAuthView.swift */,
 				AE1B9F092C6607A4008C0231 /* GalleryView.swift */,
 				AE1B9F152C662313008C0231 /* ErrorAlertView.swift */,
+				AE1B9F222C67BA70008C0231 /* DetailPhotoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1B9F232C67BA70008C0231 /* DetailPhotoView.swift in Sources */,
 				AE1B9F0A2C6607A4008C0231 /* GalleryView.swift in Sources */,
 				AE1B9EE82C6507B0008C0231 /* MainViewController.swift in Sources */,
 				AE1B9F162C662313008C0231 /* ErrorAlertView.swift in Sources */,

@@ -3,7 +3,7 @@ import UIKit
 
 class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private let galleryView = GalleryView()
-    private var photos: [String] = []
+    private var photos: [(url: String, date: Int)] = [] // Массив теперь хранит пары (url, date)
 
     override func loadView() {
         view = galleryView
@@ -57,7 +57,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
                     if vkPhotosResponse.response.items.count == 100 {
                         fetchPhotosFromAlbum(albumId: albumId, offset: offset + 100)
                     } else if albumIds.isEmpty {
-                        self.photos = allPhotos.sorted(by: { $0.date > $1.date }).map { $0.url }
+                        self.photos = allPhotos.sorted(by: { $0.date > $1.date })
                         self.galleryView.collectionView.reloadData()
                     } else {
                         fetchPhotosFromNextAlbum()
@@ -86,9 +86,12 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
             AF.request(apiUrl + "photos.getAlbums", parameters: parameters).responseDecodable(of: VKAlbumsResponse.self) { response in
                 switch response.result {
                 case let .success(vkAlbumsResponse):
-                    albumIds = vkAlbumsResponse.response.items.map { "\($0.id)" }
+                    let allowedAlbumIds = ["266310117", "266310086", "269543385", "270745774", "269548231", "266276915"]
 
-                    fetchPhotosFromAlbum(albumId: "wall")
+                    albumIds = vkAlbumsResponse.response.items.map { "\($0.id)" }.filter { allowedAlbumIds.contains($0) }
+
+                    fetchPhotosFromNextAlbum()
+
                 case let .failure(error):
                     print("Error fetching albums: \(error)")
                     self.displayError(message: "Не удалось загрузить альбомы.")
@@ -124,7 +127,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         imageView.clipsToBounds = true
         cell.contentView.addSubview(imageView)
 
-        let photoURL = photos[indexPath.item]
+        let photoURL = photos[indexPath.item].url
         AF.request(photoURL).responseData { response in
             if let data = response.data, let image = UIImage(data: data) {
                 imageView.image = image
@@ -132,6 +135,16 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photoURL = photos[indexPath.item].url
+        let photoDate = Date(timeIntervalSince1970: TimeInterval(photos[indexPath.item].date)) // Преобразование даты из UNIX timestamp
+        
+        let photoViewController = DetailPhotoViewController()
+        photoViewController.photoURL = photoURL
+        photoViewController.photoDate = photoDate
+        navigationController?.pushViewController(photoViewController, animated: true)
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
