@@ -1,5 +1,5 @@
-import XCTest
 @testable import mobileup_gallery
+import XCTest
 
 final class mobileup_galleryTests: XCTestCase {
     func testExample() throws {

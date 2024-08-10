@@ -40,7 +40,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
                 "access_token": accessToken,
                 "v": apiVersion,
                 "count": 100,
-                "offset": offset
+                "offset": offset,
             ]
 
             AF.request(apiUrl + "photos.get", parameters: parameters).responseDecodable(of: VKPhotosResponse.self) { response in
@@ -80,7 +80,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
             let parameters: [String: Any] = [
                 "owner_id": "-\(groupId)",
                 "access_token": accessToken,
-                "v": apiVersion
+                "v": apiVersion,
             ]
 
             AF.request(apiUrl + "photos.getAlbums", parameters: parameters).responseDecodable(of: VKAlbumsResponse.self) { response in
@@ -137,10 +137,10 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let photoURL = photos[indexPath.item].url
         let photoDate = Date(timeIntervalSince1970: TimeInterval(photos[indexPath.item].date)) // Преобразование даты из UNIX timestamp
-        
+
         let photoViewController = DetailPhotoViewController()
         photoViewController.photoURL = photoURL
         photoViewController.photoDate = photoDate

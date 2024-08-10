@@ -31,4 +31,3 @@ struct VKAlbumsResponse: Decodable {
         let size: Int?
     }
 }
-
