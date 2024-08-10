@@ -6,12 +6,12 @@ class DetailPhotoViewController: UIViewController {
     private let detailPhotoView = DetailPhotoView()
 
     override func loadView() {
-        self.view = detailPhotoView
+        view = detailPhotoView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .white
 
         if let urlString = photoURL, let url = URL(string: urlString) {
@@ -25,8 +25,9 @@ class DetailPhotoViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d MMMM yyyy"
         dateFormatter.locale = Locale(identifier: "ru_RU")
-        
+
         let title = photoDate != nil ? dateFormatter.string(from: photoDate!) : "Photo Detail"
+
         detailPhotoView.configureNavigationBar(title: title, target: self, backAction: #selector(backButtonTapped), shareAction: #selector(shareButtonTapped))
     }
 
@@ -41,7 +42,7 @@ class DetailPhotoViewController: UIViewController {
     @objc private func shareButtonTapped() {
         guard let image = detailPhotoView.imageView.image else { return }
         let activityController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        activityController.completionWithItemsHandler = { activity, success, items, error in
+        activityController.completionWithItemsHandler = { _, success, _, error in
             if success {
                 self.showSuccessAlert()
             } else if let error = error {
@@ -50,13 +51,13 @@ class DetailPhotoViewController: UIViewController {
         }
         present(activityController, animated: true, completion: nil)
     }
-    
+
     private func showSuccessAlert() {
         let alert = UIAlertController(title: "Успешно", message: "Фотография успешно сохранена!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
+
     private func displayError(message: String) {
         let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
         errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -64,7 +65,7 @@ class DetailPhotoViewController: UIViewController {
     }
 
     private func loadImage(from url: URL) {
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 print("Failed to load image: \(String(describing: error))")
                 return
