@@ -5,6 +5,9 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
     private var webView: WKWebView!
     private var activityIndicator: UIActivityIndicatorView!
     var onAuthorizationSuccess: ((String) -> Void)?
+    var onAuthorizationDismiss: (() -> Void)?
+    
+    private var isAuthorized: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,7 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
             if let code = URLComponents(string: url.absoluteString)?
                 .queryItems?.first(where: { $0.name == "code" })?.value
             {
+                isAuthorized = true
                 onAuthorizationSuccess?(code)
                 dismiss(animated: true, completion: nil)
             }
@@ -49,5 +53,13 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
     func webView(_: WKWebView, didFail _: WKNavigation!, withError error: Error) {
         activityIndicator.stopAnimating()
         print("Failed to load page: \(error.localizedDescription)")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !isAuthorized && (self.isBeingDismissed || self.isMovingFromParent) {
+            onAuthorizationDismiss?()
+        }
     }
 }

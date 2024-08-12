@@ -108,11 +108,11 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
 
     @objc private func logoutTapped() {
         UserDefaults.standard.removeObject(forKey: "vk_access_token")
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
 
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return isShowingPhotos ? photos.count : videos.count
+        photos.count 
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
