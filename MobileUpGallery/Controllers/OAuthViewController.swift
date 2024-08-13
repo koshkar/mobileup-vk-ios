@@ -24,7 +24,8 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
         let appId = "52123937"
         let redirectUri = "https://koshkar.github.io/mobileup-vk-ios/auth.html"
 
-        let authURL = "https://oauth.vk.com/authorize?client_id=\(appId)&display=page&redirect_uri=\(redirectUri)&scope=photos&response_type=code&v=5.131"
+        let authURL = "https://oauth.vk.com/authorize?client_id=\(appId)&display=page&redirect_uri=\(redirectUri)&scope=photos,video,groups&response_type=code&v=5.131"
+
 
         if let url = URL(string: authURL) {
             let request = URLRequest(url: url)

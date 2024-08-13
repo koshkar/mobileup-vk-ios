@@ -31,3 +31,17 @@ struct VKAlbumsResponse: Decodable {
         let size: Int?
     }
 }
+
+struct MediaItem {
+    let url: String
+    let playerUrl: String?
+    let date: Int
+    let title: String?
+    let type: MediaType
+}
+
+
+enum MediaType {
+    case photo
+    case video
+}

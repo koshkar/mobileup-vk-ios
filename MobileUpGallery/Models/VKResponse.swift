@@ -5,12 +5,3 @@ struct VKTokenResponse: Decodable {
     let expires_in: Int
     let user_id: Int
 }
-
-struct VKErrorResponse: Decodable {
-    let error: VKError
-}
-
-struct VKError: Decodable {
-    let error_code: Int
-    let error_msg: String
-}
