@@ -1,8 +1,8 @@
-import Alamofire
 import UIKit
 
 class MainViewController: UIViewController {
     private let mainView = MainView()
+    private let vkNetworkManager = VKNetworkManager.shared
 
     override func loadView() {
         view = mainView
@@ -25,19 +25,14 @@ class MainViewController: UIViewController {
     }
 
     private func validateToken(accessToken: String) {
-        let tokenUrl = "https://api.vk.com/method/users.get"
-        let parameters: [String: Any] = [
-            "access_token": accessToken,
-            "v": "5.131"
-        ]
-
-        AF.request(tokenUrl, parameters: parameters).responseDecodable(of: VKUserResponse.self) { response in
-            switch response.result {
+        vkNetworkManager.validateToken(accessToken: accessToken) { [weak self] result in
+            switch result {
             case .success:
-                self.openGalleryViewController()
+                self?.openGalleryViewController()
             case .failure:
-                self.displayError(message: "Не удалось войти. Пожалуйста, войдите снова.")
-                self.openOAuthWebView()
+                self?.displayErrorWithCompletion(message: "Не удалось войти. Пожалуйста, войдите снова.") {
+                    self?.openOAuthWebView()
+                }
             }
         }
     }
@@ -46,12 +41,6 @@ class MainViewController: UIViewController {
         let galleryVC = GalleryViewController()
         navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.pushViewController(galleryVC, animated: true)
-    }
-
-    private func displayError(message: String) {
-        let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(errorAlert, animated: true, completion: nil)
     }
 
     @objc private func openOAuthWebView() {
@@ -67,38 +56,36 @@ class MainViewController: UIViewController {
     }
 
     private func exchangeCodeForToken(code: String) {
-        let appId = "52123937"
-        let clientSecret = "DDabodopfkODj4KXksrd"
-        let redirectUri = "https://koshkar.github.io/mobileup-vk-ios/auth.html"
-
-        let tokenUrl = "https://oauth.vk.com/access_token"
-        let parameters: [String: Any] = [
-            "client_id": appId,
-            "client_secret": clientSecret,
-            "redirect_uri": redirectUri,
-            "code": code,
-        ]
-
-        AF.request(tokenUrl, parameters: parameters).responseDecodable(of: VKTokenResponse.self) { response in
-            switch response.result {
+        vkNetworkManager.exchangeCodeForToken(code: code) { [weak self] result in
+            switch result {
             case let .success(tokenResponse):
                 UserDefaults.standard.set(tokenResponse.access_token, forKey: "vk_access_token")
-                self.openGalleryViewController()
+                self?.openGalleryViewController()
 
             case let .failure(error):
                 print("Error getting token: \(error)")
-                self.displayError(message: "Не удалось получить access token.")
+                self?.displayError(message: "Не удалось получить access token.")
             }
         }
     }
-}
 
-struct VKUserResponse: Decodable {
-    let response: [VKUser]
+    private func displayErrorWithCompletion(message: String, completion: @escaping () -> Void) {
+        let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completion()
+        })
+        present(errorAlert, animated: true, completion: nil)
+    }
 
-    struct VKUser: Decodable {
-        let id: Int
-        let first_name: String
-        let last_name: String
+    private func displayError(message: String) {
+        let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(errorAlert, animated: true, completion: nil)
+    }
+    
+    // MARK: - View life cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        mainView.button.addTarget(self, action: #selector(openOAuthWebView), for: .touchUpInside)
     }
 }

@@ -50,7 +50,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
                     if let playerUrl = item.player,
                        let date = item.date,
                        let bestImageUrl = item.image?.max(by: { ($0.width ?? 0) < ($1.width ?? 0) })?.url {
-                        var mediaItem = MediaItem(url: bestImageUrl, playerUrl: playerUrl, date: date, title: item.title, type: .video)
+                        let mediaItem = MediaItem(url: bestImageUrl, playerUrl: playerUrl, date: date, title: item.title, type: .video)
                         
                         return mediaItem
                     }

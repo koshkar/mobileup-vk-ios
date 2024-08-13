@@ -56,6 +56,8 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
         print("Failed to load page: \(error.localizedDescription)")
     }
     
+    // MARK: - View life cycle
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         

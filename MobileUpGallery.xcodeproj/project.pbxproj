@@ -32,6 +32,7 @@
 		AE1B9F2C2C6A89E7008C0231 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */; };
 		AE1B9F2E2C6B73A2008C0231 /* DetailVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2D2C6B73A2008C0231 /* DetailVideoView.swift */; };
 		AE1B9F302C6B73B9008C0231 /* DetailVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2F2C6B73B9008C0231 /* DetailVideoController.swift */; };
+		AE1B9F262C69391B008C0231 /* VKNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		AE1B9F2D2C6B73A2008C0231 /* DetailVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoView.swift; sourceTree = "<group>"; };
 		AE1B9F2F2C6B73B9008C0231 /* DetailVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoController.swift; sourceTree = "<group>"; };
+		AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				AE1B9EF72C650AED008C0231 /* Models */,
 				AE1B9EF92C650AFE008C0231 /* Views */,
 				AE1B9EF82C650AF5008C0231 /* Controllers */,
+				AE1B9F242C6938B6008C0231 /* Services */,
 				AE1B9EFA2C650B06008C0231 /* Resources */,
 			);
 			path = MobileUpGallery;
@@ -168,6 +171,14 @@
 				AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		AE1B9F242C6938B6008C0231 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +279,7 @@
 				AE1B9F062C652B80008C0231 /* OAuthView.swift in Sources */,
 				AE1B9F1F2C66CDA5008C0231 /* VKResponse.swift in Sources */,
 				AE1B9F1D2C663ABD008C0231 /* VKMedia.swift in Sources */,
+				AE1B9F262C69391B008C0231 /* VKNetworkManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,11 @@ class DetailVideoViewController: UIViewController {
     var videoTitle: String?
 
     private let webView = WKWebView()
+    private let detailVideoView = DetailVideoView()
+    
+    override func loadView() {
+        view = detailVideoView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,22 +21,8 @@ class DetailVideoViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        let navigationBar = UINavigationBar(frame: .zero)
-        let navigationItem = UINavigationItem(title: videoTitle ?? "Видео")
-        let backItem = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(backTapped))
-        let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
-        navigationItem.leftBarButtonItem = backItem
-        navigationItem.rightBarButtonItem = shareItem
-        navigationBar.setItems([navigationItem], animated: false)
-        view.addSubview(navigationBar)
-
-       
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+        let title = videoTitle ?? "Видео"
+        detailVideoView.configureNavigationBar(title: title, target: self, backAction: #selector(backTapped), shareAction: #selector(shareTapped))
     }
 
     private func setupWebView() {

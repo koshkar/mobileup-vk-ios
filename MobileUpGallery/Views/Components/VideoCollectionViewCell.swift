@@ -5,8 +5,10 @@ class VideoCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView()
     let playButton = UIButton()
     let loadingIndicator = UIActivityIndicatorView(style: .medium)
+    let textLoadingIndicator = UIActivityIndicatorView(style: .medium)
     let titleLabel = PaddingLabel()
-    private var currentURL: String?
+    private var currentImageURL: String?
+    private var currentTextLoadTask: DispatchWorkItem?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -14,6 +16,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         setupImageView()
         setupLoadingIndicator()
         setupTitleLabel()
+        setupTextLoadingIndicator()
     }
 
     required init?(coder: NSCoder) {
@@ -54,6 +57,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         titleLabel.layer.masksToBounds = true
         titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.textInsets = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
+        titleLabel.isHidden = true
         contentView.addSubview(titleLabel)
 
         NSLayoutConstraint.activate([
@@ -64,35 +68,64 @@ class VideoCollectionViewCell: UICollectionViewCell {
         ])
     }
 
+    private func setupTextLoadingIndicator() {
+        textLoadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(textLoadingIndicator)
+        
+        NSLayoutConstraint.activate([
+            textLoadingIndicator.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
+            textLoadingIndicator.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
+        ])
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
         loadingIndicator.stopAnimating()
-        currentURL = nil
+        textLoadingIndicator.stopAnimating()
+        currentImageURL = nil
         titleLabel.text = nil
+        titleLabel.isHidden = true
+        currentTextLoadTask?.cancel()
     }
 
     func configure(with url: String, title: String?) {
-        currentURL = url
-        titleLabel.text = title
+        currentImageURL = url
+        loadText(title)
         loadingIndicator.startAnimating()
         loadImage(from: url)
     }
 
     private func loadImage(from url: String) {
         AF.request(url).responseData { [weak self] response in
-            guard let self = self else { return }
+            guard let self = self, self.currentImageURL == url else { return }
             self.loadingIndicator.stopAnimating()
 
-            if let data = response.data, let image = UIImage(data: data), self.currentURL == url {
+            if let data = response.data, let image = UIImage(data: data) {
                 self.imageView.image = image
-            } else {
-                self.loadImage(from: url)
             }
         }
     }
-}
 
+    private func loadText(_ text: String?) {
+        currentTextLoadTask?.cancel()
+        
+        textLoadingIndicator.startAnimating()
+        titleLabel.isHidden = true
+        
+        let task = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.textLoadingIndicator.stopAnimating()
+                self.titleLabel.text = text
+                self.titleLabel.isHidden = false
+            }
+        }
+        
+        currentTextLoadTask = task
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: task)
+    }
+}
 
 extension VideoCollectionViewCell {
     class PaddingLabel: UILabel {
@@ -116,5 +149,4 @@ extension VideoCollectionViewCell {
             }
         }
     }
-
 }
