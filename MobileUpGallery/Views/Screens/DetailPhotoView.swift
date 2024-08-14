@@ -45,7 +45,7 @@ class DetailPhotoView: UIView {
 
     func configureNavigationBar(title: String, target: Any?, backAction: Selector, shareAction: Selector) {
         let titleAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: "SFProText-SemiBold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold),
+            .font: DesignSystem.Fonts.sfProTextSemiBold17,
             .foregroundColor: UIColor.black,
         ]
         let attributedTitle = NSAttributedString(string: title, attributes: titleAttributes)
@@ -57,11 +57,11 @@ class DetailPhotoView: UIView {
         let navigationItem = UINavigationItem()
         navigationItem.titleView = titleLabel
 
-        let backButton = UIBarButtonItem(image: UIImage(named: "Chevron"), style: .plain, target: target, action: backAction)
+        let backButton = UIBarButtonItem(image: DesignSystem.Icons.chevron, style: .plain, target: target, action: backAction)
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
 
-        let shareButton = UIBarButtonItem(image: UIImage(named: "SquareAndArrow"), style: .plain, target: target, action: shareAction)
+        let shareButton = UIBarButtonItem(image: DesignSystem.Icons.squareAndArrow, style: .plain, target: target, action: shareAction)
         shareButton.tintColor = .black
         navigationItem.rightBarButtonItem = shareButton
 

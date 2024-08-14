@@ -36,15 +36,14 @@ class OAuthViewController: UIViewController, WKNavigationDelegate, AlertPresenta
     func webView(_ webView: WKWebView, didFinish _: WKNavigation!) {
         loadingIndicator.hide()
 
-        if let url = webView.url, url.absoluteString.contains("code=") {
-            if let code = URLComponents(string: url.absoluteString)?
-                .queryItems?.first(where: { $0.name == "code" })?.value
-            {
+        guard let url = webView.url,
+                    let components = URLComponents(string: url.absoluteString),
+                    let code = components.queryItems?.first(where: { $0.name == "code" })?.value
+                else { return }
+
                 isAuthorized = true
                 onAuthorizationSuccess?(code)
                 dismiss(animated: true, completion: nil)
-            }
-        }
     }
 
     func webView(_: WKWebView, didFail _: WKNavigation!, withError _: Error) {

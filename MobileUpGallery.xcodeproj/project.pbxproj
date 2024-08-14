@@ -35,6 +35,7 @@
 		AE1B9F302C6B73B9008C0231 /* DetailVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2F2C6B73B9008C0231 /* DetailVideoViewController.swift */; };
 		AE1B9F332C6BDAFF008C0231 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F322C6BDAFF008C0231 /* AlertPresentable.swift */; };
 		AE1B9F372C6CCAA5008C0231 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F362C6CCAA5008C0231 /* LoadingIndicator.swift */; };
+		AE7978FD2C6D353E004C3A36 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7978FC2C6D353E004C3A36 /* DesignSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		AE1B9F2F2C6B73B9008C0231 /* DetailVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoViewController.swift; sourceTree = "<group>"; };
 		AE1B9F322C6BDAFF008C0231 /* AlertPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
 		AE1B9F362C6CCAA5008C0231 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		AE7978FC2C6D353E004C3A36 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */,
+				AE7978FC2C6D353E004C3A36 /* DesignSystem.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				AE1B9F2C2C6A89E7008C0231 /* PhotoCollectionViewCell.swift in Sources */,
 				AE1B9F062C652B80008C0231 /* OAuthView.swift in Sources */,
 				AE1B9F1F2C66CDA5008C0231 /* VKResponse.swift in Sources */,
+				AE7978FD2C6D353E004C3A36 /* DesignSystem.swift in Sources */,
 				AE1B9F1D2C663ABD008C0231 /* VKMedia.swift in Sources */,
 				AE1B9F262C69391B008C0231 /* VKNetworkManager.swift in Sources */,
 			);
