@@ -1,5 +1,5 @@
-import UIKit
 import AVKit
+import UIKit
 
 class DetailVideoView: UIView {
     let navigationBar = UINavigationBar()

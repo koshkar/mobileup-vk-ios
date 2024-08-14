@@ -28,11 +28,13 @@
 		AE1B9F1F2C66CDA5008C0231 /* VKResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F1E2C66CDA5008C0231 /* VKResponse.swift */; };
 		AE1B9F212C6764A4008C0231 /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F202C6764A4008C0231 /* DetailPhotoViewController.swift */; };
 		AE1B9F232C67BA70008C0231 /* DetailPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F222C67BA70008C0231 /* DetailPhotoView.swift */; };
+		AE1B9F262C69391B008C0231 /* VKNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */; };
 		AE1B9F282C6A8910008C0231 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F272C6A8910008C0231 /* VideoCollectionViewCell.swift */; };
 		AE1B9F2C2C6A89E7008C0231 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */; };
 		AE1B9F2E2C6B73A2008C0231 /* DetailVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2D2C6B73A2008C0231 /* DetailVideoView.swift */; };
-		AE1B9F302C6B73B9008C0231 /* DetailVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2F2C6B73B9008C0231 /* DetailVideoController.swift */; };
-		AE1B9F262C69391B008C0231 /* VKNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */; };
+		AE1B9F302C6B73B9008C0231 /* DetailVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2F2C6B73B9008C0231 /* DetailVideoViewController.swift */; };
+		AE1B9F332C6BDAFF008C0231 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F322C6BDAFF008C0231 /* AlertPresentable.swift */; };
+		AE1B9F372C6CCAA5008C0231 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F362C6CCAA5008C0231 /* LoadingIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,11 +59,13 @@
 		AE1B9F1E2C66CDA5008C0231 /* VKResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKResponse.swift; sourceTree = "<group>"; };
 		AE1B9F202C6764A4008C0231 /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
 		AE1B9F222C67BA70008C0231 /* DetailPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoView.swift; sourceTree = "<group>"; };
+		AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetworkManager.swift; sourceTree = "<group>"; };
 		AE1B9F272C6A8910008C0231 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		AE1B9F2D2C6B73A2008C0231 /* DetailVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoView.swift; sourceTree = "<group>"; };
-		AE1B9F2F2C6B73B9008C0231 /* DetailVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoController.swift; sourceTree = "<group>"; };
-		AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetworkManager.swift; sourceTree = "<group>"; };
+		AE1B9F2F2C6B73B9008C0231 /* DetailVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoViewController.swift; sourceTree = "<group>"; };
+		AE1B9F322C6BDAFF008C0231 /* AlertPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
+		AE1B9F362C6CCAA5008C0231 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,7 @@
 				AE1B9EF72C650AED008C0231 /* Models */,
 				AE1B9EF92C650AFE008C0231 /* Views */,
 				AE1B9EF82C650AF5008C0231 /* Controllers */,
+				AE1B9F312C6BDAC7008C0231 /* Extensions */,
 				AE1B9F242C6938B6008C0231 /* Services */,
 				AE1B9EFA2C650B06008C0231 /* Resources */,
 			);
@@ -124,7 +129,7 @@
 				AE1B9F072C652B8F008C0231 /* OAuthViewController.swift */,
 				AE1B9F0B2C6607B4008C0231 /* GalleryViewController.swift */,
 				AE1B9F202C6764A4008C0231 /* DetailPhotoViewController.swift */,
-				AE1B9F2F2C6B73B9008C0231 /* DetailVideoController.swift */,
+				AE1B9F2F2C6B73B9008C0231 /* DetailVideoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -151,6 +156,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		AE1B9F242C6938B6008C0231 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		AE1B9F292C6A89B4008C0231 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,16 +182,17 @@
 				AE1B9F152C662313008C0231 /* ErrorAlertView.swift */,
 				AE1B9F272C6A8910008C0231 /* VideoCollectionViewCell.swift */,
 				AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */,
+				AE1B9F362C6CCAA5008C0231 /* LoadingIndicator.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		AE1B9F242C6938B6008C0231 /* Services */ = {
+		AE1B9F312C6BDAC7008C0231 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */,
+				AE1B9F322C6BDAFF008C0231 /* AlertPresentable.swift */,
 			);
-			path = Services;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE1B9F302C6B73B9008C0231 /* DetailVideoController.swift in Sources */,
+				AE1B9F302C6B73B9008C0231 /* DetailVideoViewController.swift in Sources */,
 				AE1B9F282C6A8910008C0231 /* VideoCollectionViewCell.swift in Sources */,
 				AE1B9F232C67BA70008C0231 /* DetailPhotoView.swift in Sources */,
 				AE1B9F0A2C6607A4008C0231 /* GalleryView.swift in Sources */,
@@ -274,7 +288,9 @@
 				AE1B9EE62C6507B0008C0231 /* SceneDelegate.swift in Sources */,
 				AE1B9F212C6764A4008C0231 /* DetailPhotoViewController.swift in Sources */,
 				AE1B9F0C2C6607B4008C0231 /* GalleryViewController.swift in Sources */,
+				AE1B9F372C6CCAA5008C0231 /* LoadingIndicator.swift in Sources */,
 				AE1B9F082C652B8F008C0231 /* OAuthViewController.swift in Sources */,
+				AE1B9F332C6BDAFF008C0231 /* AlertPresentable.swift in Sources */,
 				AE1B9F2C2C6A89E7008C0231 /* PhotoCollectionViewCell.swift in Sources */,
 				AE1B9F062C652B80008C0231 /* OAuthView.swift in Sources */,
 				AE1B9F1F2C66CDA5008C0231 /* VKResponse.swift in Sources */,

@@ -1,6 +1,6 @@
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, AlertPresentable {
     private let mainView = MainView()
     private let vkNetworkManager = VKNetworkManager.shared
 
@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         mainView.onError = { [weak self] message in
-            self?.displayError(message: message)
+            self?.showAlert(message: message)
         }
 
         mainView.setupView()
@@ -30,7 +30,7 @@ class MainViewController: UIViewController {
             case .success:
                 self?.openGalleryViewController()
             case .failure:
-                self?.displayErrorWithCompletion(message: "Не удалось войти. Пожалуйста, войдите снова.") {
+                self?.showAlert(message: "Не удалось войти. Пожалуйста, войдите снова.") {
                     self?.openOAuthWebView()
                 }
             }
@@ -50,7 +50,7 @@ class MainViewController: UIViewController {
             self?.exchangeCodeForToken(code: code)
         }
         oAuthViewController.onAuthorizationDismiss = { [weak self] in
-            self?.displayError(message: "Авторизация отменена.")
+            self?.showAlert(message: "Авторизация отменена.")
         }
         present(oAuthViewController, animated: true, completion: nil)
     }
@@ -64,28 +64,13 @@ class MainViewController: UIViewController {
 
             case let .failure(error):
                 print("Error getting token: \(error)")
-                self?.displayError(message: "Не удалось получить access token.")
+                self?.showAlert(message: "Не удалось получить access token.")
             }
         }
     }
 
-    private func displayErrorWithCompletion(message: String, completion: @escaping () -> Void) {
-        let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            completion()
-        })
-        present(errorAlert, animated: true, completion: nil)
-    }
-
-    private func displayError(message: String) {
-        let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(errorAlert, animated: true, completion: nil)
-    }
-    
-    // MARK: - View life cycle
-    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         mainView.button.addTarget(self, action: #selector(openOAuthWebView), for: .touchUpInside)
     }
 }

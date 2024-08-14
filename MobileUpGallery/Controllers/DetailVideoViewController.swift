@@ -1,13 +1,13 @@
 import UIKit
 import WebKit
 
-class DetailVideoViewController: UIViewController {
+class DetailVideoViewController: UIViewController, WKNavigationDelegate, AlertPresentable {
     var videoURL: String?
     var videoTitle: String?
 
     private let webView = WKWebView()
     private let detailVideoView = DetailVideoView()
-    
+
     override func loadView() {
         view = detailVideoView
     }
@@ -21,26 +21,29 @@ class DetailVideoViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        let title = videoTitle ?? "Видео"
-        detailVideoView.configureNavigationBar(title: title, target: self, backAction: #selector(backTapped), shareAction: #selector(shareTapped))
+        if let title = videoTitle {
+            detailVideoView.configureNavigationBar(title: title, target: self, backAction: #selector(backTapped), shareAction: #selector(shareTapped))
+        } else {
+            showAlert(message: "Отсутствует заголовок")
+        }
     }
 
     private func setupWebView() {
+        webView.navigationDelegate = self
         view.addSubview(webView)
-
 
         webView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 44),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 
     private func loadVideo() {
         guard let videoURLString = videoURL, let url = URL(string: videoURLString) else {
-            displayError(message: "Некорректный URL видео.")
+            showAlert(message: "Некорректный URL видео.")
             return
         }
 
@@ -58,9 +61,7 @@ class DetailVideoViewController: UIViewController {
         present(activityViewController, animated: true, completion: nil)
     }
 
-    private func displayError(message: String) {
-        let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(errorAlert, animated: true, completion: nil)
+    func webView(_: WKWebView, didFail _: WKNavigation!, withError _: Error) {
+        showAlert(message: "Не удалось загрузить видео.")
     }
 }

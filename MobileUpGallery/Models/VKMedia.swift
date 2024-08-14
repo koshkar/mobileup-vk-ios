@@ -1,9 +1,5 @@
 import Foundation
 
-struct VKPhotosResponse: Decodable {
-    let response: VKPhotoItems
-}
-
 struct VKPhotoItems: Decodable {
     let items: [VKPhotoItem]
 }
@@ -13,23 +9,20 @@ struct VKPhotoItem: Decodable {
     let date: Int
 }
 
-struct VKPhotoSize: Decodable {
-    let url: String
+struct VKVideoItem: Decodable {
+    let player: String?
+    let date: Int?
+    let title: String?
+    let image: [VKVideoImage]?
 }
 
-struct VKAlbumsResponse: Decodable {
-    let response: Response
+struct VKVideoImage: Decodable {
+    let width: Int?
+    let url: String?
+}
 
-    struct Response: Decodable {
-        let count: Int
-        let items: [Album]
-    }
-
-    struct Album: Decodable {
-        let id: Int
-        let title: String
-        let size: Int?
-    }
+struct VKPhotoSize: Decodable {
+    let url: String
 }
 
 struct MediaItem {
@@ -39,7 +32,6 @@ struct MediaItem {
     let title: String?
     let type: MediaType
 }
-
 
 enum MediaType {
     case photo

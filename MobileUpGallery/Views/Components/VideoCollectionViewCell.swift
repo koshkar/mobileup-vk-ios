@@ -1,25 +1,29 @@
-import UIKit
 import Alamofire
+import UIKit
 
 class VideoCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView()
     let playButton = UIButton()
-    let loadingIndicator = UIActivityIndicatorView(style: .medium)
-    let textLoadingIndicator = UIActivityIndicatorView(style: .medium)
     let titleLabel = PaddingLabel()
+
+    private let imageLoadingIndicator = LoadingIndicator()
+    private let textLoadingIndicator = LoadingIndicator()
+
     private var currentImageURL: String?
     private var currentTextLoadTask: DispatchWorkItem?
+    var onLogError: ((String) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
+        imageLoadingIndicator.initialize(on: imageView)
+        textLoadingIndicator.initialize(on: titleLabel)
         setupImageView()
-        setupLoadingIndicator()
         setupTitleLabel()
-        setupTextLoadingIndicator()
     }
 
-    required init?(coder: NSCoder) {
+    required init?(coder _: NSCoder) {
+        onLogError?("Это не должно тут имплементиться")
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -33,17 +37,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
-    }
-    
-    private func setupLoadingIndicator() {
-        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(loadingIndicator)
-        
-        NSLayoutConstraint.activate([
-            loadingIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            loadingIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
 
@@ -51,7 +45,12 @@ class VideoCollectionViewCell: UICollectionViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         titleLabel.textColor = .black
-        titleLabel.font = UIFont(name: "SFProText-Medium", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .medium)
+        if let font = UIFont(name: "SFProText-Medium", size: 13) {
+            titleLabel.font = font
+        } else {
+            onLogError?("Ошибка загрузки шрифта SFProText-Medium")
+            titleLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        }
         titleLabel.numberOfLines = 0
         titleLabel.layer.cornerRadius = 16
         titleLabel.layer.masksToBounds = true
@@ -64,25 +63,15 @@ class VideoCollectionViewCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 70),
-            titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width - 131 - 16)
-        ])
-    }
-
-    private func setupTextLoadingIndicator() {
-        textLoadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(textLoadingIndicator)
-        
-        NSLayoutConstraint.activate([
-            textLoadingIndicator.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
-            textLoadingIndicator.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
+            titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width - 131 - 16),
         ])
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
-        loadingIndicator.stopAnimating()
-        textLoadingIndicator.stopAnimating()
+        imageLoadingIndicator.show()
+        textLoadingIndicator.show()
         currentImageURL = nil
         titleLabel.text = nil
         titleLabel.isHidden = true
@@ -92,38 +81,40 @@ class VideoCollectionViewCell: UICollectionViewCell {
     func configure(with url: String, title: String?) {
         currentImageURL = url
         loadText(title)
-        loadingIndicator.startAnimating()
         loadImage(from: url)
     }
 
     private func loadImage(from url: String) {
+        imageLoadingIndicator.show()
+
         AF.request(url).responseData { [weak self] response in
             guard let self = self, self.currentImageURL == url else { return }
-            self.loadingIndicator.stopAnimating()
 
             if let data = response.data, let image = UIImage(data: data) {
                 self.imageView.image = image
             }
+
+            self.imageLoadingIndicator.hide()
         }
     }
 
     private func loadText(_ text: String?) {
         currentTextLoadTask?.cancel()
-        
-        textLoadingIndicator.startAnimating()
+
+        textLoadingIndicator.show()
         titleLabel.isHidden = true
-        
+
         let task = DispatchWorkItem { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.textLoadingIndicator.stopAnimating()
+                self.textLoadingIndicator.hide()
                 self.titleLabel.text = text
                 self.titleLabel.isHidden = false
             }
         }
-        
+
         currentTextLoadTask = task
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: task)
+        DispatchQueue.global().async(execute: task)
     }
 }
 
