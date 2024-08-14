@@ -1,10 +1,12 @@
 import Alamofire
 import UIKit
 
-class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AlertPresentable {
     private let galleryView = GalleryView()
     private var photos: [MediaItem] = []
     private var videos: [MediaItem] = []
+
+    private let vkNetworkManager = VKNetworkManager.shared
 
     override func loadView() {
         view = galleryView
@@ -12,12 +14,12 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         galleryView.collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
         galleryView.collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: "VideoCell")
 
         guard let accessToken = UserDefaults.standard.string(forKey: "vk_access_token") else {
-            displayError(message: "Не удалось получить токен доступа.")
+            showAlert(message: "Не удалось получить токен доступа.")
             return
         }
 
@@ -32,40 +34,16 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
 
     private func fetchAllVideos(accessToken: String) {
-        let groupId = "128666765"
-        let apiVersion = "5.131"
-        let apiUrl = "https://api.vk.com/method/video.get"
-        
-        let parameters: [String: Any] = [
-            "owner_id": "-\(groupId)",
-            "access_token": accessToken,
-            "v": apiVersion,
-            "count": 200,
-            "extended": 1
-        ]
-        AF.request(apiUrl, parameters: parameters).responseDecodable(of: VKVideoResponse.self) { response in
-            switch response.result {
-            case let .success(vkVideoResponse):
-                let fetchedVideos = vkVideoResponse.response.items.compactMap { item -> MediaItem? in
-                    if let playerUrl = item.player,
-                       let date = item.date,
-                       let bestImageUrl = item.image?.max(by: { ($0.width ?? 0) < ($1.width ?? 0) })?.url {
-                        var mediaItem = MediaItem(url: bestImageUrl, playerUrl: playerUrl, date: date, title: item.title, type: .video)
-                        
-                        return mediaItem
-                    }
-                    return nil
+        vkNetworkManager.fetchVideos(accessToken: accessToken) { [weak self] result in
+            switch result {
+            case let .success(videos):
+                self?.videos.append(contentsOf: videos)
+                self?.videos.sort(by: { $0.date > $1.date })
+                if self?.galleryView.segmentedControl.selectedSegmentIndex == 1 {
+                    self?.galleryView.collectionView.reloadData()
                 }
-                self.videos.append(contentsOf: fetchedVideos)
-                
-                self.videos.sort(by: { $0.date > $1.date })
-                if self.galleryView.segmentedControl.selectedSegmentIndex == 1 {
-                    self.galleryView.collectionView.reloadData()
-                }
-                
             case let .failure(error):
-                print("Error fetching videos: \(error)")
-                self.displayError(message: "Не удалось загрузить видео.")
+                self?.showAlert(message: "Не удалось загрузить видео. Ошибка: \(error.localizedDescription)")
             }
         }
     }
@@ -75,7 +53,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         let apiVersion = "5.131"
         let apiUrl = "https://api.vk.com/method/"
         var albumIds: [String] = []
-        
+
         func fetchPhotosFromAlbum(albumId: String, offset: Int = 0) {
             let parameters: [String: Any] = [
                 "owner_id": "-\(groupId)",
@@ -109,7 +87,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
                     }
                 case let .failure(error):
                     print("Error fetching photos from album \(albumId): \(error)")
-                    self.displayError(message: "Не удалось загрузить фотографии.")
+                    self.showAlert(message: "Не удалось загрузить фотографии.")
                 }
             }
         }
@@ -139,7 +117,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
 
                 case let .failure(error):
                     print("Error fetching albums: \(error)")
-                    self.displayError(message: "Не удалось загрузить альбомы.")
+                    self.showAlert(message: "Не удалось загрузить альбомы.")
                 }
             }
         }
@@ -147,7 +125,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         fetchAlbumIds()
     }
 
-    @objc private func segmentChanged(_ sender: UISegmentedControl) {
+    @objc private func segmentChanged(_: UISegmentedControl) {
         galleryView.collectionView.reloadData()
     }
 
@@ -177,15 +155,18 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         case 1:
             let mediaItem = videos[indexPath.item]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCell", for: indexPath) as! VideoCollectionViewCell
+            cell.onLogError = { [weak self] errorMessage in
+                self?.showAlert(message: errorMessage)
+            }
             cell.configure(with: mediaItem.url, title: mediaItem.title)
             return cell
         default:
+            showAlert(message: "Выбран несуществующий сегмент")
             fatalError("Unexpected segment index")
         }
     }
 
-
-    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let spacing: CGFloat = 4
         let width: CGFloat
         let height: CGFloat
@@ -224,45 +205,15 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
 
-
-
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .zero
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, insetForSectionAt _: Int) -> UIEdgeInsets {
+        .zero
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 4
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumLineSpacingForSectionAt _: Int) -> CGFloat {
+        4
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 4
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
+        4
     }
-
-    private func displayError(message: String) {
-        let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(errorAlert, animated: true, completion: nil)
-    }
-}
-
-struct VKVideoResponse: Decodable {
-    let response: VKVideoResponseData
-}
-
-struct VKVideoResponseData: Decodable {
-    let items: [VKVideoItem]
-}
-
-struct VKVideoItem: Decodable {
-    let player: String?
-    let date: Int?
-    let title: String?
-    let image: [VKVideoImage]?
-}
-
-
-struct VKVideoImage: Decodable {
-    let width: Int?
-    let url: String?
 }

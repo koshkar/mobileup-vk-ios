@@ -1,5 +1,5 @@
-import UIKit
 import AVKit
+import UIKit
 
 class DetailVideoView: UIView {
     let navigationBar = UINavigationBar()
@@ -57,11 +57,11 @@ class DetailVideoView: UIView {
         let navigationItem = UINavigationItem()
         navigationItem.titleView = titleLabel
 
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: target, action: backAction)
+        let backButton = UIBarButtonItem(image: UIImage(named: "Chevron"), style: .plain, target: target, action: backAction)
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
 
-        let shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: target, action: shareAction)
+        let shareButton = UIBarButtonItem(image: UIImage(named: "SquareAndArrow"), style: .plain, target: target, action: shareAction)
         shareButton.tintColor = .black
         navigationItem.rightBarButtonItem = shareButton
 

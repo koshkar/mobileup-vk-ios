@@ -1,9 +1,11 @@
 import UIKit
 
-class DetailPhotoViewController: UIViewController {
+class DetailPhotoViewController: UIViewController, AlertPresentable {
     var photoURL: String?
     var photoDate: Date?
     private let detailPhotoView = DetailPhotoView()
+
+    private let vkNetworkManager = VKNetworkManager.shared
 
     override func loadView() {
         view = detailPhotoView
@@ -16,6 +18,8 @@ class DetailPhotoViewController: UIViewController {
 
         if let urlString = photoURL, let url = URL(string: urlString) {
             loadImage(from: url)
+        } else {
+            showAlert(message: "Неверный урл")
         }
 
         setupNavigationBar()
@@ -46,7 +50,7 @@ class DetailPhotoViewController: UIViewController {
             if success {
                 self.showSuccessAlert()
             } else if let error = error {
-                self.displayError(message: "Не удалось сохранить фотографию: \(error.localizedDescription)")
+                self.showAlert(message: "Не удалось сохранить фотографию: \(error.localizedDescription)")
             }
         }
         present(activityController, animated: true, completion: nil)
@@ -58,22 +62,16 @@ class DetailPhotoViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func displayError(message: String) {
-        let errorAlert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(errorAlert, animated: true, completion: nil)
-    }
-
     private func loadImage(from url: URL) {
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else {
-                print("Failed to load image: \(String(describing: error))")
-                return
-            }
+        vkNetworkManager.fetchImage(from: url) { [weak self] result in
             DispatchQueue.main.async {
-                self.detailPhotoView.imageView.image = UIImage(data: data)
+                switch result {
+                case let .success(image):
+                    self?.detailPhotoView.imageView.image = image
+                case let .failure(error):
+                    self?.showAlert(message: "Не удалось загрузить изображение. Ошибка: \(error.localizedDescription)")
+                }
             }
         }
-        task.resume()
     }
 }

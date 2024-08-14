@@ -1,12 +1,12 @@
 import UIKit
 import WebKit
 
-class OAuthViewController: UIViewController, WKNavigationDelegate {
+class OAuthViewController: UIViewController, WKNavigationDelegate, AlertPresentable {
     private var webView: WKWebView!
-    private var activityIndicator: UIActivityIndicatorView!
+    private let loadingIndicator = LoadingIndicator()
     var onAuthorizationSuccess: ((String) -> Void)?
     var onAuthorizationDismiss: (() -> Void)?
-    
+
     private var isAuthorized: Bool = false
 
     override func viewDidLoad() {
@@ -16,16 +16,12 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
         webView.navigationDelegate = self
         view.addSubview(webView)
 
-        activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.center = view.center
-        activityIndicator.hidesWhenStopped = true
-        view.addSubview(activityIndicator)
+        loadingIndicator.initialize(on: view)
 
         let appId = "52123937"
         let redirectUri = "https://koshkar.github.io/mobileup-vk-ios/auth.html"
 
         let authURL = "https://oauth.vk.com/authorize?client_id=\(appId)&display=page&redirect_uri=\(redirectUri)&scope=photos,video,groups&response_type=code&v=5.131"
-
 
         if let url = URL(string: authURL) {
             let request = URLRequest(url: url)
@@ -34,11 +30,11 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
     }
 
     func webView(_: WKWebView, didStartProvisionalNavigation _: WKNavigation!) {
-        activityIndicator.startAnimating()
+        loadingIndicator.show()
     }
 
     func webView(_ webView: WKWebView, didFinish _: WKNavigation!) {
-        activityIndicator.stopAnimating()
+        loadingIndicator.hide()
 
         if let url = webView.url, url.absoluteString.contains("code=") {
             if let code = URLComponents(string: url.absoluteString)?
@@ -51,15 +47,15 @@ class OAuthViewController: UIViewController, WKNavigationDelegate {
         }
     }
 
-    func webView(_: WKWebView, didFail _: WKNavigation!, withError error: Error) {
-        activityIndicator.stopAnimating()
-        print("Failed to load page: \(error.localizedDescription)")
+    func webView(_: WKWebView, didFail _: WKNavigation!, withError _: Error) {
+        loadingIndicator.hide()
+        showAlert(message: "Не удалось загрузить страницу")
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        if !isAuthorized && (self.isBeingDismissed || self.isMovingFromParent) {
+
+        if !isAuthorized, isBeingDismissed || isMovingFromParent {
             onAuthorizationDismiss?()
         }
     }
