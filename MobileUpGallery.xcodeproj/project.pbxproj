@@ -24,8 +24,17 @@
 		AE1B9F162C662313008C0231 /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F152C662313008C0231 /* ErrorAlertView.swift */; };
 		AE1B9F192C663A65008C0231 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AE1B9F182C663A65008C0231 /* Alamofire */; };
 		AE1B9F1B2C663A65008C0231 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = AE1B9F1A2C663A65008C0231 /* AlamofireDynamic */; };
-		AE1B9F1D2C663ABD008C0231 /* VKPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F1C2C663ABD008C0231 /* VKPhotos.swift */; };
+		AE1B9F1D2C663ABD008C0231 /* VKMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F1C2C663ABD008C0231 /* VKMedia.swift */; };
 		AE1B9F1F2C66CDA5008C0231 /* VKResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F1E2C66CDA5008C0231 /* VKResponse.swift */; };
+		AE1B9F212C6764A4008C0231 /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F202C6764A4008C0231 /* DetailPhotoViewController.swift */; };
+		AE1B9F232C67BA70008C0231 /* DetailPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F222C67BA70008C0231 /* DetailPhotoView.swift */; };
+		AE1B9F262C69391B008C0231 /* VKNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */; };
+		AE1B9F282C6A8910008C0231 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F272C6A8910008C0231 /* VideoCollectionViewCell.swift */; };
+		AE1B9F2C2C6A89E7008C0231 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */; };
+		AE1B9F2E2C6B73A2008C0231 /* DetailVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2D2C6B73A2008C0231 /* DetailVideoView.swift */; };
+		AE1B9F302C6B73B9008C0231 /* DetailVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F2F2C6B73B9008C0231 /* DetailVideoViewController.swift */; };
+		AE1B9F332C6BDAFF008C0231 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F322C6BDAFF008C0231 /* AlertPresentable.swift */; };
+		AE1B9F372C6CCAA5008C0231 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1B9F362C6CCAA5008C0231 /* LoadingIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +55,17 @@
 		AE1B9F0F2C66144C008C0231 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		AE1B9F102C66144D008C0231 /* SFProText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Semibold.ttf"; sourceTree = "<group>"; };
 		AE1B9F152C662313008C0231 /* ErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
-		AE1B9F1C2C663ABD008C0231 /* VKPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPhotos.swift; sourceTree = "<group>"; };
+		AE1B9F1C2C663ABD008C0231 /* VKMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKMedia.swift; sourceTree = "<group>"; };
 		AE1B9F1E2C66CDA5008C0231 /* VKResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKResponse.swift; sourceTree = "<group>"; };
+		AE1B9F202C6764A4008C0231 /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
+		AE1B9F222C67BA70008C0231 /* DetailPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoView.swift; sourceTree = "<group>"; };
+		AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetworkManager.swift; sourceTree = "<group>"; };
+		AE1B9F272C6A8910008C0231 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		AE1B9F2D2C6B73A2008C0231 /* DetailVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoView.swift; sourceTree = "<group>"; };
+		AE1B9F2F2C6B73B9008C0231 /* DetailVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVideoViewController.swift; sourceTree = "<group>"; };
+		AE1B9F322C6BDAFF008C0231 /* AlertPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
+		AE1B9F362C6CCAA5008C0231 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +106,8 @@
 				AE1B9EF72C650AED008C0231 /* Models */,
 				AE1B9EF92C650AFE008C0231 /* Views */,
 				AE1B9EF82C650AF5008C0231 /* Controllers */,
+				AE1B9F312C6BDAC7008C0231 /* Extensions */,
+				AE1B9F242C6938B6008C0231 /* Services */,
 				AE1B9EFA2C650B06008C0231 /* Resources */,
 			);
 			path = MobileUpGallery;
@@ -96,7 +116,7 @@
 		AE1B9EF72C650AED008C0231 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AE1B9F1C2C663ABD008C0231 /* VKPhotos.swift */,
+				AE1B9F1C2C663ABD008C0231 /* VKMedia.swift */,
 				AE1B9F1E2C66CDA5008C0231 /* VKResponse.swift */,
 			);
 			path = Models;
@@ -108,6 +128,8 @@
 				AE1B9EE72C6507B0008C0231 /* MainViewController.swift */,
 				AE1B9F072C652B8F008C0231 /* OAuthViewController.swift */,
 				AE1B9F0B2C6607B4008C0231 /* GalleryViewController.swift */,
+				AE1B9F202C6764A4008C0231 /* DetailPhotoViewController.swift */,
+				AE1B9F2F2C6B73B9008C0231 /* DetailVideoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -115,10 +137,8 @@
 		AE1B9EF92C650AFE008C0231 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AE1B9EFF2C651182008C0231 /* MainView.swift */,
-				AE1B9F052C652B80008C0231 /* OAuthView.swift */,
-				AE1B9F092C6607A4008C0231 /* GalleryView.swift */,
-				AE1B9F152C662313008C0231 /* ErrorAlertView.swift */,
+				AE1B9F292C6A89B4008C0231 /* Screens */,
+				AE1B9F2A2C6A89C5008C0231 /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -134,6 +154,45 @@
 				AE1B9EEE2C6507B1008C0231 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		AE1B9F242C6938B6008C0231 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9F252C69391B008C0231 /* VKNetworkManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AE1B9F292C6A89B4008C0231 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9EFF2C651182008C0231 /* MainView.swift */,
+				AE1B9F052C652B80008C0231 /* OAuthView.swift */,
+				AE1B9F092C6607A4008C0231 /* GalleryView.swift */,
+				AE1B9F222C67BA70008C0231 /* DetailPhotoView.swift */,
+				AE1B9F2D2C6B73A2008C0231 /* DetailVideoView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		AE1B9F2A2C6A89C5008C0231 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9F152C662313008C0231 /* ErrorAlertView.swift */,
+				AE1B9F272C6A8910008C0231 /* VideoCollectionViewCell.swift */,
+				AE1B9F2B2C6A89E7008C0231 /* PhotoCollectionViewCell.swift */,
+				AE1B9F362C6CCAA5008C0231 /* LoadingIndicator.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AE1B9F312C6BDAC7008C0231 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B9F322C6BDAFF008C0231 /* AlertPresentable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,17 +276,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE1B9F302C6B73B9008C0231 /* DetailVideoViewController.swift in Sources */,
+				AE1B9F282C6A8910008C0231 /* VideoCollectionViewCell.swift in Sources */,
+				AE1B9F232C67BA70008C0231 /* DetailPhotoView.swift in Sources */,
 				AE1B9F0A2C6607A4008C0231 /* GalleryView.swift in Sources */,
 				AE1B9EE82C6507B0008C0231 /* MainViewController.swift in Sources */,
 				AE1B9F162C662313008C0231 /* ErrorAlertView.swift in Sources */,
+				AE1B9F2E2C6B73A2008C0231 /* DetailVideoView.swift in Sources */,
 				AE1B9F002C651182008C0231 /* MainView.swift in Sources */,
 				AE1B9EE42C6507B0008C0231 /* AppDelegate.swift in Sources */,
 				AE1B9EE62C6507B0008C0231 /* SceneDelegate.swift in Sources */,
+				AE1B9F212C6764A4008C0231 /* DetailPhotoViewController.swift in Sources */,
 				AE1B9F0C2C6607B4008C0231 /* GalleryViewController.swift in Sources */,
+				AE1B9F372C6CCAA5008C0231 /* LoadingIndicator.swift in Sources */,
 				AE1B9F082C652B8F008C0231 /* OAuthViewController.swift in Sources */,
+				AE1B9F332C6BDAFF008C0231 /* AlertPresentable.swift in Sources */,
+				AE1B9F2C2C6A89E7008C0231 /* PhotoCollectionViewCell.swift in Sources */,
 				AE1B9F062C652B80008C0231 /* OAuthView.swift in Sources */,
 				AE1B9F1F2C66CDA5008C0231 /* VKResponse.swift in Sources */,
-				AE1B9F1D2C663ABD008C0231 /* VKPhotos.swift in Sources */,
+				AE1B9F1D2C663ABD008C0231 /* VKMedia.swift in Sources */,
+				AE1B9F262C69391B008C0231 /* VKNetworkManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +446,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -385,9 +454,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = alpha.MobileUpGallery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -405,6 +478,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -412,9 +486,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = alpha.MobileUpGallery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

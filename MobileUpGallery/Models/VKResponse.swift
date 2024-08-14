@@ -6,11 +6,29 @@ struct VKTokenResponse: Decodable {
     let user_id: Int
 }
 
-struct VKErrorResponse: Decodable {
-    let error: VKError
+struct VKAlbumsResponse: Decodable {
+    let response: Response
+
+    struct Response: Decodable {
+        let count: Int
+        let items: [Album]
+    }
+
+    struct Album: Decodable {
+        let id: Int
+        let title: String
+        let size: Int?
+    }
 }
 
-struct VKError: Decodable {
-    let error_code: Int
-    let error_msg: String
+struct VKPhotosResponse: Decodable {
+    let response: VKPhotoItems
+}
+
+struct VKVideoResponse: Decodable {
+    let response: VKVideoResponseData
+}
+
+struct VKVideoResponseData: Decodable {
+    let items: [VKVideoItem]
 }

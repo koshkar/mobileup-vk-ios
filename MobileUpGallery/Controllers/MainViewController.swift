@@ -1,8 +1,8 @@
-import Alamofire
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, AlertPresentable {
     private let mainView = MainView()
+    private let vkNetworkManager = VKNetworkManager.shared
 
     override func loadView() {
         view = mainView
@@ -12,56 +12,65 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         mainView.onError = { [weak self] message in
-            self?.displayError(message: message)
+            self?.showAlert(message: message)
         }
 
         mainView.setupView()
 
-        mainView.button.addTarget(self, action: #selector(openOAuthWebView), for: .touchUpInside)
+        if let accessToken = UserDefaults.standard.string(forKey: "vk_access_token") {
+            validateToken(accessToken: accessToken)
+        } else {
+            mainView.button.addTarget(self, action: #selector(openOAuthWebView), for: .touchUpInside)
+        }
     }
 
-    private func displayError(message: String) {
-        let errorAlert = ErrorAlertView(message: message)
-        errorAlert.show(in: view)
+    private func validateToken(accessToken: String) {
+        vkNetworkManager.validateToken(accessToken: accessToken) { [weak self] result in
+            switch result {
+            case .success:
+                self?.openGalleryViewController()
+            case .failure:
+                self?.showAlert(message: "Не удалось войти. Пожалуйста, войдите снова.") {
+                    self?.openOAuthWebView()
+                }
+            }
+        }
     }
 
-    @objc func openOAuthWebView() {
+    private func openGalleryViewController() {
+        let galleryVC = GalleryViewController()
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.pushViewController(galleryVC, animated: true)
+    }
+
+    @objc private func openOAuthWebView() {
         let oAuthViewController = OAuthViewController()
         oAuthViewController.modalPresentationStyle = .formSheet
-
         oAuthViewController.onAuthorizationSuccess = { [weak self] code in
             self?.exchangeCodeForToken(code: code)
         }
-
+        oAuthViewController.onAuthorizationDismiss = { [weak self] in
+            self?.showAlert(message: "Авторизация отменена.")
+        }
         present(oAuthViewController, animated: true, completion: nil)
     }
 
     private func exchangeCodeForToken(code: String) {
-        let appId = "52123937"
-        let clientSecret = "DDabodopfkODj4KXksrd"
-        let redirectUri = "https://koshkar.github.io/mobileup-vk-ios/auth.html"
-
-        let tokenUrl = "https://oauth.vk.com/access_token"
-        let parameters: [String: Any] = [
-            "client_id": appId,
-            "client_secret": clientSecret,
-            "redirect_uri": redirectUri,
-            "code": code,
-        ]
-
-        AF.request(tokenUrl, parameters: parameters).responseDecodable(of: VKTokenResponse.self) { response in
-            switch response.result {
+        vkNetworkManager.exchangeCodeForToken(code: code) { [weak self] result in
+            switch result {
             case let .success(tokenResponse):
                 UserDefaults.standard.set(tokenResponse.access_token, forKey: "vk_access_token")
-
-                let galleryVC = GalleryViewController()
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-                self.navigationController?.pushViewController(galleryVC, animated: true)
+                self?.openGalleryViewController()
 
             case let .failure(error):
                 print("Error getting token: \(error)")
-                self.displayError(message: "Не удалось получить access token.")
+                self?.showAlert(message: "Не удалось получить access token.")
             }
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mainView.button.addTarget(self, action: #selector(openOAuthWebView), for: .touchUpInside)
     }
 }

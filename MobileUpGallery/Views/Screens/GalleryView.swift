@@ -42,6 +42,8 @@ class GalleryView: UIView {
         control.setTitleTextAttributes(normalAttributes, for: .normal)
         control.setTitleTextAttributes(selectedAttributes, for: .selected)
 
+        control.overrideUserInterfaceStyle = .light
+
         return control
     }()
 
