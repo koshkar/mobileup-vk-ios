@@ -6,6 +6,13 @@ class DetailPhotoViewController: UIViewController, AlertPresentable {
     private let detailPhotoView = DetailPhotoView()
 
     private let vkNetworkManager = VKNetworkManager.shared
+    
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMMM yyyy"
+        formatter.locale = Locale(identifier: "ru_RU")
+        return formatter
+    }()
 
     override func loadView() {
         view = detailPhotoView
@@ -26,10 +33,6 @@ class DetailPhotoViewController: UIViewController, AlertPresentable {
     }
 
     private func setupNavigationBar() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d MMMM yyyy"
-        dateFormatter.locale = Locale(identifier: "ru_RU")
-
         let title = photoDate != nil ? dateFormatter.string(from: photoDate!) : "Photo Detail"
 
         detailPhotoView.configureNavigationBar(title: title, target: self, backAction: #selector(backButtonTapped), shareAction: #selector(shareButtonTapped))
