@@ -45,12 +45,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         titleLabel.textColor = .black
-        if let font = UIFont(name: "SFProText-Medium", size: 13) {
-            titleLabel.font = font
-        } else {
-            onLogError?("Ошибка загрузки шрифта SFProText-Medium")
-            titleLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        }
+        titleLabel.font = DesignSystem.Fonts.sfProTextMedium13
         titleLabel.numberOfLines = 0
         titleLabel.layer.cornerRadius = 16
         titleLabel.layer.masksToBounds = true

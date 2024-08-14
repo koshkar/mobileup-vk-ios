@@ -5,7 +5,7 @@ class ErrorAlertView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = DesignSystem.Fonts.sfProTextMedium15
         label.textColor = .white
         return label
     }()
@@ -13,7 +13,7 @@ class ErrorAlertView: UIView {
     private let dismissButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("OK", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        button.titleLabel?.font = DesignSystem.Fonts.sfProTextSemiBold17
         button.setTitleColor(.white, for: .normal)
         return button
     }()

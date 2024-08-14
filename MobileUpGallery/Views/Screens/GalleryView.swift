@@ -4,11 +4,7 @@ class GalleryView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "MobileUp Gallery"
-        if let customFont = UIFont(name: "SFProText-SemiBold", size: 17) {
-            label.font = customFont
-        } else {
-            label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        }
+        label.font = DesignSystem.Fonts.sfProTextSemiBold17
         label.textAlignment = .center
         label.textColor = UIColor.black
         return label
@@ -17,11 +13,7 @@ class GalleryView: UIView {
     let logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Выход", for: .normal)
-        if let customFont = UIFont(name: "SFProText-Regular", size: 17) {
-            button.titleLabel?.font = customFont
-        } else {
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        }
+        button.titleLabel?.font = DesignSystem.Fonts.sfProTextRegular17
         button.setTitleColor(UIColor.black, for: .normal)
         return button
     }()
@@ -31,11 +23,11 @@ class GalleryView: UIView {
         control.selectedSegmentIndex = 0
 
         let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: "SFProText-Medium", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .medium),
+            .font: DesignSystem.Fonts.sfProTextMedium13,
             .foregroundColor: UIColor.black,
         ]
         let selectedAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont(name: "SFProText-SemiBold", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .semibold),
+            .font: DesignSystem.Fonts.sfProTextSemiBold13,
             .foregroundColor: UIColor.black,
         ]
 

@@ -28,19 +28,9 @@ class MainView: UIView {
         addSubview(label)
         addSubview(button)
 
-        if let customFont = UIFont(name: "SFProText-Bold", size: 44) {
-            label.font = customFont
-        } else {
-            onError?("Ошибка загрузки шрифта SFProText-Bold")
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        }
+        label.font = DesignSystem.Fonts.sfProTextBold44
 
-        if let customFont = UIFont(name: "SFProText-Medium", size: 15) {
-            button.titleLabel?.font = customFont
-        } else {
-            onError?("Ошибка загрузки шрифта SFProText-Medium")
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        }
+        button.titleLabel?.font = DesignSystem.Fonts.sfProTextMedium15
 
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: topAnchor, constant: 170),
